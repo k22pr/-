@@ -1,0 +1,36 @@
+@charset "utf-8";
+body{
+	font-family:'맑은고딕';
+	background:#16191c;
+	text-align:center;
+	color:#eee;
+	padding-top:50px !important;
+}
+html, body, th, td, input, select, textarea, button, div, p, h1, h2, h3, h4, h5, h6, a, span, li{
+	padding:0px;margin:0px;
+}
+
+	img.view{line-height:100%;
+		overflow:hidden;position:relative;width:auto;margin:0px auto 0px auto;border-left:3px solid rgba(0,0,0,.5);border-right:3px solid rgba(0,0,0,.5);
+		margin:0px;padding:0px;
+		max-width:750px;width:60%;
+	}
+
+	div.view-header{
+		z-index:5;position:fixed;top:0px;left:0px;width:100%;font-size:1.2em;color:#333;background:rgba(255,255,255,.98);text-align:center;
+		transition:.3s ease 0s;transform:translate(0px, 0px);border-bottom:1px solid rgba(0,0,0,.5);
+		div.left{float:left;width:150px;border-right:1px solid rgba(0,0,0,.1);padding:10px;}
+		div.title{float:left;width:calc(100% - 362px);border-right:1px solid rgba(0,0,0,.1);padding:10px;font-weight:bold;}
+		div.right{float:left;width:150px;padding:10px;}
+	}
+	div.view-header.hide{transform:translate(0px, -50px);}
+	div.view-page{
+		position:fixed;bottom:0px;right:0px;padding:10px;background:rgba(0,0,0,.5);color:rgba(255,255,255,.8);font-size:1.7em;border-radius-left-top:10px;
+	}
+	
+	div.btn{transition:.2s ease 0s;cursor:pointer;}
+		div.btn:hover{background:rgb(0,158,255);color:#fff;}
+	div.btn-lock{color:#999;}
+
+	a{color:#333;}
+	a:hover{color:#333;}
