@@ -1,149 +1,127 @@
 var dom = {
+	url : location,
+	urlBase : location.pathname.split("/"),
 	src : [],
 	img : [],
+	season : [],
+	nowView : 1,
 	addSrc : function(name){
 		this.src.push(name);
 	},
 	addImg : function(name){
 		this.img.push(name);
-	}
+	},
+	make : {
+		img : function(){
+			for(i = 0;i < dom.img.length; i++){
+				$("body").append("<img src='"+dom.url.origin+dom.img[i]+"' count='"+i+"' class='view'>");
+				/*
+				src = dom.url.origin+dom.img[i].attributes[2].value;
+				console.log(dom.img[i].attributes[2]);
+				$("body").append("<img src='"+src+"' count='"+i+"'>");
+				*/
+			};
+		},
+		header : function(){
+			$("body").append("<div class='view-header'><div class='left header-list bbtn hand'>목록</div><div class='left header-title'><span class='small'>"+(dom.now)+"개 <</span> "+dom.name.base+" <span class='small'>> "+(dom.season.length-dom.now-1)+"개</span></div></div>");
+			if(dom.urlBase[2] == dom.season[0][1]) $("div.view-header").prepend("<div class='bbtn btn-lock'>이전</div>");
+			else $("div.view-header").prepend("<a href='"+dom.season[dom.now-1][1]+"'><div class='bbtn bdr0 only-line'>이전("+dom.season[dom.now-1][0]+")</div></a>");
+			if(dom.urlBase[2] == dom.season[dom.season.length-1][1]) $("div.view-header").append("<div class='bbtn btn-lock'>다음</div>");
+			else $("div.view-header").append("<a href='"+dom.season[dom.now+1][1]+"'><div class='bbtn bdr0 only-line'>다음("+dom.season[dom.now+1][0]+")</div></a>");
+			
+		},
+		nowPage : function(){
+			//현재보는 페이지
+			$("body").append("<div class='view-page'><span class='now'>"+dom.nowView+"</span>/"+(dom.img.length)+"</span></div>");
+		},
+		lockBox : function(){
+			$("body").append("<div class='wac5 box lock-box mt-p10 p10'><div class='b3'>이 페이지는 잠겨 있습니다.</div></div>");
+			$("div.lock-box").append("<form action='"+location.href+"' class='wac8 b4 mt20' method='POST'><input type='password' name='pass' placeholder='비밀번호 입력' class='w12'><button class='btn oran w12 mt10'>확인</form>");
+		},
+		listBox : function(){
+			$("div.view-header").append("<div class='list-box b5 w12 hide'></div>");
+			$.each(dom.season,function(i,list){
+				if(dom.sync.dataView.indexOf(list[1]) == -1) color = "tblue";
+				else color = "tgrey";
+				if(i != 0) $(".list-box").append("<span class='l p10'> | </span>");
+				$(".list-box").append("<a href='http://wasabisyrup.com/archives/"+list[1]+"'><span class='"+color+" p10'>"+list[0]+"</span></a>");
+			});
+		}
+	},
+	now : {
+	},
+	name : {
+		base : $("title").html(),
+		title : function(){
+			arr = this.base.split(' ');
+			name = '';
+			if(arr.length < 1) return base;
+			for(i = 0; i < arr.length-1;i++){
+				if(i != 0) name += ' ';
+				name += arr[i];
+			}
+			return name;
+		}
+	},
+	sync : {
+		data : [],
+		dataView : [],
+		save : {
+			json : ""
+		},
+		view : {
+			view : ""
+		}
+		
+	},
+	lock : false
 }
+
 
 document.onreadystatechange = function(event){
     if(document.readyState == "interactive") {
-		document.removeEventListener("DOMContentLoaded",onload);
-		document.removeEventListener("DOMContentLoaded",onloadstart);
-		window.removeEventListener("DOMContentLoaded",onload);
 		for(i=0; i < event.srcElement.all.length; i++){
 			var content = event.srcElement.all[i];
 			if(content.localName == "script"){
 				dom.addSrc(content);
 			}else if(content.localName == "img"){
-				dom.addImg(content);
+				dom.addImg(content.attributes[2].value);
 			}
 		}
+		
+		(function(){
+			var isBreak = false;
+			$.each($("select.list-articles > option"), function(i,list){
+				s = $(list).html().replace(/([\s|\n|\t|\r])+/gi,'');
+				if(dom.season[0] != undefined && dom.season[0][1] == $(list).val()){
+					isBreak = true;
+					return false;
+				}else{
+					//현재 보고있는 화수
+					if($(list).val() == dom.urlBase[2]) dom.now = dom.season.length;
+					dom.season.push([$(list).html().replace(/	/g,''),$(list).val()]);
+				}
+			});
+		}());
+		
+		if($("form").length != 0) dom.lock = true;
+		else dom.lock = false;
+		dom.name.base = $("div.article-title").attr("title");
+		root.remove();
+		$("head").remove();
 		//window.srcElement.all = dom.img;
 		//console.log(document.onreadystatechange);
 		//document.documentElement = "123";
     }
-}
-
-
-now = {
-	now : location.pathname.split("/"),
-	back : 0,
-	backCss : "",
-	next : 0,
-	nextCss : ""
-};
-view = {
-	now : 1
-}
-
-last = {}
-
-chrome.storage.sync.get("data",function(item){
-	console.log(item);
-	data = {"on":1,list:[]};
-	data = item;
-	if(data.list == undefined)  data.list = [];
 	
-	//undefined
-	if(data.on == undefined) data.on = 1;
-	//on or off
-	if(data.on == 1) $("head").remove();
-	else return false;
-	console.log(data.on);
-
-	$(document).ready(function(){
-		arr = [];
-		season = [];
-		title = $("div.article-title").attr("title");
-		name = $("span.title-subject").html();
-		$.each($("img.lz-lazyload"), function(i,list){
-			arr.push(list.attributes[2].value);
-			cname = list.className;
-		});
-		//화수를 구함
+	if(document.readyState == "complete"){
 		
-		isBreak = false;
-		$.each($("select.list-articles > option"), function(i,list){
-			season.forEach(function(loop){
-				if(loop[1] == $(list).val()){
-					isBreak = true;
-				}
-			});
-			if(isBreak){
-				isBreak = false;
-				return false;
-			}
-			
-			s = $(list).html().replace(/([\s|\n|\t|\r])+/gi,'');
-			season.push([$(list).html().replace(/	/g,''),$(list).val()]);
-			
-			if($(list).val() == now.now[2]) now.back = i;
-		});
+		//console.log(dom);
+		if(dom.lock == true && dom.img.length == 0) dom.make.lockBox();
+		else dom.make.img();
+		dom.make.header();
+		dom.make.nowPage();
 		
-		last.name = name;
-		last.title = title;
-		last.link = now.now[2];
-		changeNo = -1;
-		$.each(data.list,function(i,list){
-			if(list.name == last.name) changeNo = i;
-		});
-		
-		if(data.list.length == 0) data.list[0] = last;
-		else if(changeNo == -1) data.list[data.list.length] = last;
-		else data.list[changeNo] = last;
-		
-		//data.list[data.list.length] = last;
-		save = $.extend({},data);
-		//else data[changeNo] = last;
-		
-		chrome.storage.sync.set(save,function(){
-			console.log(save);
-		});
-		
-		
-		
-		if(season[now.back-1] !== undefined){
-			now.backCss = "btn";
-			now.backLink = season[now.back-1][1];
-		}else{
-			now.backCss = "btn-lock";
-		}
-		//다음화가 있는 경우
-		if(season[now.back+1] !== undefined){
-			now.next = now.back+1;
-			now.nextCss = "btn";
-			now.nextLink = season[now.back+1][1];
-		}else{
-			now.nextCss = "btn-lock";
-		}
-		
-		
-		$("body").empty();
-		
-		$("body").append("<div class='view-header'><div class='title'>header</div></div>");
-			if(now.back == 0) $("div.view-header").prepend("<div class='left "+now.backCss+"'>이전화</div>");
-			else $("div.view-header").prepend("<a href='"+now.backLink+"'><div class='left "+now.backCss+"'>이전화</div></a>");
-			if(now.next == 0) $("div.view-header").append("<div class='right "+now.nextCss+"'>다음화</div>");
-			else $("div.view-header").append("<a href='"+now.nextLink+"'><div class='right "+now.nextCss+"'>다음화</div></a>");
-		//현재보는 페이지
-		$("body").append("<div class='view-page'><span class='now'>"+view.now+"</span>/"+(arr.length-1)+"</span></div>");
-		
-		$("div.title").html(title);
-		$.each(arr,function(i,list){
-			$("body").append("<img src='"+list+"' class='"+cname+" view' count='"+i+"'>");
-		});
-		
-		function ShowHeader(){
-			$("div.view-header").removeClass("hide"); 
-		}
-		
-		function HideHeader(){
-			$("div.view-header").addClass("hide");
-		}
 		$(function(){
 		  //Keep track of last scroll
 		  var lastScroll = 0;
@@ -155,12 +133,14 @@ chrome.storage.sync.get("data",function(item){
 				//Replace this with your function call for downward-scrolling
 				now = $(document).scrollTop()+$(window).height();
 				max = $(document).height();
-				if(now == max) ShowHeader();
-				else HideHeader();
+				if(now == max){
+					$("div.view-header").removeClass("bye"); 
+					$("span.now").html(dom.img.length);
+				}else $("div.view-header").addClass("bye");
 			  }
 			  else { //up
 				//Replace this with your function call for upward-scrolling
-				ShowHeader();
+				$("div.view-header").removeClass("bye"); 
 				//if(
 			  }
 			  //scroll
@@ -174,6 +154,74 @@ chrome.storage.sync.get("data",function(item){
 			  lastScroll = st;
 		  });
 		});
-	});
-	
-});
+		
+		$(document).on("click",".header-list",function(){
+			$(".list-box").toggleClass("hide");
+		});
+		
+		//save sync
+		chrome.storage.sync.get(dom.sync.save,function(loadData){
+			if(loadData.json == ""){
+				loadData = {
+					json : "[]"
+				}
+			}else{
+				dom.sync.data = JSON.parse(loadData.json);
+			}
+			if(dom.sync.data.length > 30) dom.sync.data = dom.sync.data.slice(1);
+			save = dom.sync.data;
+			var saveNo = -1;
+			
+			save.forEach(function(list,i){
+				if(list.name == dom.name.title()){
+					saveNo = i;
+				}
+			});
+			
+			
+			if(saveNo == -1) saveNo = save.length;
+			reg = dom.season[dom.now][0].search(/[0-9]/i);
+			//console.log(reg);
+			if(reg != -1){
+				save[saveNo] = {
+					name : dom.name.title(),
+					size : dom.season.length,
+					link : dom.season[dom.now]
+				}
+			}
+			dom.sync.save.json = JSON.stringify(save);
+			
+			chrome.storage.sync.set(dom.sync.save,function(){
+				//console.log(dom.sync.save);
+			});
+			
+		});
+		
+		chrome.storage.sync.get(dom.sync.view,function(loadViewData){
+			if(loadViewData.view == ""){
+				loadViewData = {
+					view : "[]"
+				}
+			}
+			dom.sync.dataView = JSON.parse(loadViewData.view);
+			isset = dom.sync.dataView.indexOf(dom.season[dom.now][1]);
+			if(isset == -1){
+				dom.sync.dataView[dom.sync.dataView.length] = dom.season[dom.now][1];
+				dom.sync.view.view = JSON.stringify(dom.sync.dataView);
+				chrome.storage.sync.set(dom.sync.view,function(){
+				});
+			}
+			//console.log(dom.sync.dataView);
+			dom.make.listBox();
+		});
+		
+		/*
+		dom.sync.get(function(event){
+			console.log(event);
+			dom.sync.set(function(){
+				console.log("sync clear");
+			});
+		});
+		*/
+	}
+}

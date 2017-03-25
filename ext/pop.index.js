@@ -1,40 +1,51 @@
-
-
-chrome.storage.sync.get("data",function(item){
-	console.log(item);
-	data = {"on":1,list:[]};
-	data = item;
-	if(data.on == undefined) data.on = 1;
-	if(data.list == undefined) data.list = [];
-	
-	$(document).ready(function(){
-		//$("body").html(data.list[0]);
-		
-		/*
-		console.log(data);
-		$("div.my-list").html(data);
-		$.each(data.list,function(i,list){
-			$("div.my-list").append("<div class='w12'>"+(i+1)+"1233 "+list.name+"</div>");
-		});
-		*/
-		
-		
-
-		$("div.my-list").html("hi");
-		$("div.my-list").append(data.on);
-		if(data.on == false) $(this).removeClass("button-body-on");
-		
-		$(document).on("click","div.button-body",function(){
-			$(this).toggleClass("button-body-on");
-			if($(this).hasClass("button-body-on")) data.on = 1;
-			else data.on = 0;
-			saveData();
-		});
-	});
-	
-	function saveData(){
-		chrome.storage.sync.set(data,function(){
-			console.log(data);
+dom = {
+	url : "http://wasabisyrup.com/archives/",
+	list : function(){
+		$(".my-list").empty();
+		$.each(data,function(i,list){
+			base = $(".my-list").append("<li class='w12'><div class='w10 only-line tmain go hand' link='"+dom.url+list.link[1]+"'><span class='bold'>["+list.link[0].trim()+"]</span> "+list.name+"</div><div class='w2 tred del hand' no='"+i+"'>del</div></li>");
 		});
 	}
+}
+data = {
+	
+};
+
+$(document).ready(function(){
+	chrome.storage.sync.get({json:""},function(item){
+		if(item == undefined) data = [];
+		else{
+			data = JSON.parse(item.json).reverse();
+			dom.list();
+		}
+		
+			//$("body").html(data.list[0]);
+			
+			/*
+			console.log(data);
+			$("div.my-list").html(data);
+			$.each(data.list,function(i,list){
+				$("div.my-list").append("<div class='w12'>"+(i+1)+"1233 "+list.name+"</div>");
+			});
+			*/
+	});
+	
+	$(document).on("click","div.go",function(){
+		chrome.tabs.create({url:$(this).attr("link")});
+	});
+	
+	$(document).on("click","div.del",function(){
+		no = $(this).attr("no");
+		console.log("ee");
+		data.splice(no,1);
+		dom.list();
+		
+		//save
+		save =  {
+			json : JSON.stringify(data.reverse())
+		}
+		chrome.storage.sync.set(save,function(){
+			console.log(save);
+		});
+	});
 });
