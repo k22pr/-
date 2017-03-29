@@ -12,6 +12,7 @@ data = {
 };
 
 $(document).ready(function(){
+	$("input.search").focus();
 	chrome.storage.sync.get({json:""},function(item){
 		if(item == undefined) data = [];
 		else{
@@ -48,4 +49,15 @@ $(document).ready(function(){
 			console.log(save);
 		});
 	});
+	
+	$(document).on("click","button.search-btn",function(){
+		search();
+	});
+	$(document).on("keydown","input.search",function(e){
+		if(e.keyCode == 13) search();
+	});
+	function search(){
+		search_link = "http://marumaru.in/?r=home&mod=search&keyword="+encodeURI($("input.search").val());
+		chrome.tabs.create({url:search_link});
+	}
 });

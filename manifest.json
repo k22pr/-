@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "마루마루 클리너",
-    "version": "0.77",
+    "version": "0.82",
     "description": "마루마루를 클린하게 만들어 줍니다.",
 	
 	"icons" : {
@@ -23,6 +23,13 @@
 			"matches": ["http://wasabisyrup.com/archives/*"],
 			"js":["./ext/jquery.min.js","./ext/index.min.js"],
 			"css":["./ext/css/tisbe.css","./ext/css/style.css"],
+			"run_at": "document_start"
+		},
+		
+		{
+			"matches": ["http://marumaru.in/*"],
+			"js":["./ext/jquery.min.js","./ext/maru.min.js"],
+			"css":["./ext/css/maru.css"],
 			"run_at": "document_start"
 		}
 	],

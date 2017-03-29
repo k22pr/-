@@ -1,0 +1,20 @@
+@charset "utf-8";
+
+html{
+	.view-link{
+		color:#1580e3 !important;font-weight:bold;transition:.3s ease 0s;
+		font,span{ @extend .view-link}
+	}
+	.view-link:hover{color:rgba(0,158,255,8) !important;font-weight:bold;}
+	.small{
+		color:#aaa !important;font-weight:normal;
+		font,span{ @extend .small}
+	}
+	//광고 제거 test
+	body{
+		iframe{display:none !important}
+		div#responsive-banner{@extend iframe}
+		div#widget__insert_html{@extend iframe}
+	}
+	div#widget_brank{top:0px !important;}
+}

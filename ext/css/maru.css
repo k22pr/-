@@ -1,0 +1,16 @@
+html .view-link, html .view-link font, html .view-link span {
+  color: #1580e3 !important;
+  font-weight: bold;
+  transition: .3s ease 0s; }
+html .view-link:hover, html .view-link font:hover, html .view-link span:hover {
+  color: #009eff !important;
+  font-weight: bold; }
+html .small, html .small font, html .small span {
+  color: #aaa !important;
+  font-weight: normal; }
+html body iframe, html body div#responsive-banner, html body div#widget__insert_html {
+  display: none !important; }
+html div#widget_brank {
+  top: 0px !important; }
+
+/*# sourceMappingURL=maru.css.map */

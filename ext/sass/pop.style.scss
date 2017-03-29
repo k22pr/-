@@ -9,8 +9,8 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 	 box-sizing: border-box;
 }
 
-html{max-height:300px;min-height:300px;width:270px;max-width:270px;min-width:270px;overflow:hidden;}
-body{max-height:300px;min-height:300px;width:270px;max-width:270px;min-width:270px;overflow:hidden;
+html{width:270px;max-width:270px;min-width:270px;overflow:hidden;}
+body{max-height:400px;min-height:400px;width:270px;max-width:270px;min-width:270px;overflow:hidden;
 	ext-align:center;padding:15px;margin:0px;font-size:13px;
 	font-family:'맑은고딕','나눔고딕','굴림';
 }
@@ -26,4 +26,4 @@ img.logo{width:100%;}
 		div.ball{right:-1px;}
 	}
 .by{font-size:12px !important;}
-ul.my-list{max-height:250px;overflow-y:auto;padding:0px;}
+ul.my-list{height:100%;max-height:350px;overflow-y:auto;padding:0px;}
