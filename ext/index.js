@@ -23,7 +23,7 @@ var dom = {
 			};
 		},
 		header : function(){
-			$("body").append("<div class='view-header'><div class='left header-list bbtn hand'>목록</div><div class='left header-title'><span class='small'>"+(dom.now)+"개 <</span> "+dom.name.base+" <span class='small'>> "+(dom.season.length-dom.now-1)+"개</span></div></div>");
+			$("body").append("<div class='view-header' id='head'><div class='left header-list bbtn hand'>목록</div><div class='left header-title'><span class='small'>"+(dom.now)+"개 <</span> "+dom.name.base+" <span class='small'>> "+(dom.season.length-dom.now-1)+"개</span></div></div>");
 			if(dom.urlBase[2] == dom.season[0][1]) $("div.view-header").prepend("<div class='bbtn btn-lock'>이전</div>");
 			else $("div.view-header").prepend("<a href='"+dom.season[dom.now-1][1]+"'><div class='bbtn bdr0 only-line'>이전("+dom.season[dom.now-1][0]+")</div></a>");
 			if(dom.urlBase[2] == dom.season[dom.season.length-1][1]) $("div.view-header").append("<div class='bbtn btn-lock'>다음</div>");
@@ -76,10 +76,25 @@ var dom = {
 	},
 	lock : false
 }
+chrome.runtime.onConnect.addListener(function(e){
+	console.log(e);
+	alert("Ee");
+});
 
+window.onload = function(){
+	port = null;
+	if(!port) port = chrome.runtime.connect();
+	//port.onDisconnect().removeListener();
+	console.log(port);
+	//$("body").replaceWith('<clean>' + $("body").html() +'</clean>');
+	//listener off
+	//$("body").parentNode.replaceChild($("body").cloneNode(true), $("body"));
+	// console.log($._data($(document)[0],'events'));
+}
 
 document.onreadystatechange = function(event){
     if(document.readyState == "interactive") {
+		$(root).off();
 		for(i=0; i < event.srcElement.all.length; i++){
 			var content = event.srcElement.all[i];
 			if(content.localName == "script"){
@@ -107,15 +122,18 @@ document.onreadystatechange = function(event){
 		if($("form").length != 0) dom.lock = true;
 		else dom.lock = false;
 		dom.name.base = $("div.article-title").attr("title");
+		$(root).off();
 		root.remove();
 		$("head").remove();
+		//$("body").remove();
 		//window.srcElement.all = dom.img;
 		//console.log(document.onreadystatechange);
 		//document.documentElement = "123";
     }
 	
 	if(document.readyState == "complete"){
-		
+		$(window).off();
+		$(document).off();
 		//console.log(dom);
 		if(dom.lock == true && dom.img.length == 0) dom.make.lockBox();
 		else dom.make.img();

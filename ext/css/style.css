@@ -3,13 +3,16 @@ html, body, th, td, input, select, textarea, button, div, p, h1, h2, h3, h4, h5,
   padding: 0px;
   margin: 0px; }
 
-body {
+html {
   font-family: '맑은고딕';
   background: #16191c;
   text-align: center;
   color: #eee;
   padding-top: 50px !important; }
-  body img.view {
+  html body {
+    background: #16191c; }
+  html img.view {
+    z-index: 10;
     line-height: 100%;
     overflow: hidden;
     position: relative;
@@ -22,8 +25,8 @@ body {
     padding: 0px;
     max-width: 750px;
     width: 60%; }
-  body div.view-header {
-    z-index: 5;
+  html div.view-header {
+    z-index: 11;
     position: fixed;
     top: 0px;
     left: 0px;
@@ -36,14 +39,14 @@ body {
     transition: .3s ease 0s;
     transform: translate(0px, 0px);
     border-bottom: 1px solid rgba(0, 0, 0, 0.5); }
-    body div.view-header div.bbtn {
+    html div.view-header div.bbtn {
       z-index: 4;
       float: left;
       width: 200px;
       padding: 10px 0px; }
-    body div.view-header div.bbtn:hover {
+    html div.view-header div.bbtn:hover {
       color: #009eff; }
-    body div.view-header div.header-title {
+    html div.view-header div.header-title {
       z-index: 4;
       float: left;
       width: calc(100% - 500px);
@@ -51,15 +54,15 @@ body {
       padding: 10px;
       font-weight: bold;
       border-left: 1px solid rgba(0, 0, 0, 0.1); }
-    body div.view-header div.header-list {
+    html div.view-header div.header-list {
       float: left;
       border-left: 1px solid rgba(0, 0, 0, 0.1);
       padding: 10px 0px;
       width: 100px !important; }
-  body div.view-header.bye {
+  html div.view-header.bye {
     transform: translate(0px, -50px);
     transition: 0.3s ease 0s; }
-  body div.view-page {
+  html div.view-page {
     position: fixed;
     bottom: 0px;
     right: 0px;
@@ -68,7 +71,7 @@ body {
     color: rgba(255, 255, 255, 0.8);
     font-size: 1.7em;
     border-radius-left-top: 10px; }
-  body div.list-box {
+  html div.list-box {
     z-index: 0;
     position: fixed;
     bottom: 0px;
@@ -82,20 +85,20 @@ body {
     overflow: auto;
     top: 47px;
     padding-bottom: 5px; }
-  body div.btn {
+  html div.btn {
     transition: .2s ease 0s;
     cursor: pointer; }
-  body div.btn:hover {
+  html div.btn:hover {
     background: #009eff;
     color: #fff; }
-  body div.btn-lock {
+  html div.btn-lock {
     color: #999;
     background: #eee; }
-  body a {
+  html a {
     color: #333; }
-  body a:hover {
+  html a:hover {
     color: #333; }
-  body .small {
+  html .small {
     font-size: 0.9em;
     color: #999;
     font-weight: normal; }
