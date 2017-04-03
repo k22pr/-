@@ -32,7 +32,7 @@ var dom = {
 		},
 		nowPage : function(){
 			//현재보는 페이지
-			$("body").append("<div class='view-page'><span class='now'>"+dom.nowView+"</span>/"+(dom.img.length)+"</span></div>");
+			$("body").append("<div class='view-page only-line'><span class='now'>"+dom.nowView+"</span>/"+(dom.img.length)+"</span></div>");
 		},
 		lockBox : function(){
 			$("body").append("<div class='wac5 box lock-box mt-p10 p10'><div class='b3'>이 페이지는 잠겨 있습니다.</div></div>");
@@ -55,6 +55,7 @@ var dom = {
 		title : function(){
 			arr = this.base.split(' ');
 			name = '';
+			if(arr[arr.length-1].search("/(-|~)/i") != -1) arr[arr.length-1] = '';
 			if(arr.length < 1) return base;
 			for(i = 0; i < arr.length-1;i++){
 				if(i != 0) name += ' ';
@@ -90,6 +91,7 @@ window.onload = function(){
 	//listener off
 	//$("body").parentNode.replaceChild($("body").cloneNode(true), $("body"));
 	// console.log($._data($(document)[0],'events'));
+	$("body").addClass("show");
 }
 
 document.onreadystatechange = function(event){
@@ -107,14 +109,14 @@ document.onreadystatechange = function(event){
 		(function(){
 			var isBreak = false;
 			$.each($("select.list-articles > option"), function(i,list){
-				s = $(list).html().replace(/([\s|\n|\t|\r])+/gi,'');
+				//console.log($(list).html().search("/[가-힣]+/"));
 				if(dom.season[0] != undefined && dom.season[0][1] == $(list).val()){
 					isBreak = true;
 					return false;
 				}else{
 					//현재 보고있는 화수
 					if($(list).val() == dom.urlBase[2]) dom.now = dom.season.length;
-					dom.season.push([$(list).html().replace(/	/g,''),$(list).val()]);
+					dom.season.push([$(list).html().replace(/(\t|\s)+/g,''),$(list).val()]);
 				}
 			});
 		}());
@@ -198,14 +200,16 @@ document.onreadystatechange = function(event){
 			
 			
 			if(saveNo == -1) saveNo = save.length;
-			reg = dom.season[dom.now][0].search(/[0-9]/i);
-			//console.log(reg);
-			if(reg != -1){
+			reg = dom.season[dom.now][0].search(/[\uAC00-\uAD8B-\uAD8D-\uD0C3-\uD0C5-\uD3B7-\uD3B9-\uD653-\uD655-\uD7A3]+/i);
+			if(reg == -1){
 				save[saveNo] = {
 					name : dom.name.title(),
 					size : dom.season.length,
 					link : dom.season[dom.now]
 				}
+				console.log("save change. ");
+				console.log(saveNo);
+				console.log(save);
 			}
 			dom.sync.save.json = JSON.stringify(save);
 			

@@ -13,6 +13,8 @@ html{
 	body{
 		background:#16191c;
 	}
+	body{opacity:0;}
+	body.show{opacity:1;transform:.3s ease 0s}
 
 
 	img.view{

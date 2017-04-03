@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "마루마루 클리너",
-    "version": "0.85",
+    "version": "0.87",
     "description": "마루마루를 클린하게 만들어 줍니다.",
 	
 	"icons" : {

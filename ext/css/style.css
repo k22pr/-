@@ -11,6 +11,11 @@ html {
   padding-top: 50px !important; }
   html body {
     background: #16191c; }
+  html body {
+    opacity: 0; }
+  html body.show {
+    opacity: 1;
+    transform: .3s ease 0s; }
   html img.view {
     z-index: 10;
     line-height: 100%;
