@@ -1,9 +1,9 @@
-	port = chrome.runtime.connect()
-	chrome.runtime.onMessage.addListener(function(message, sender, sendResponse){
-		return ext.onMessage._dispatch(message, {}, sendResponse).indexOf(true) != -1;
-	});
-	port.onMessage.addListener(onNativeMessage);
-    port.onDisconnect.addListener(onDisconnected);
-	port = null;
-	
-	console.log("hello");
+
+chrome.webRequest.onBeforeRequest.addListener(function(e){
+	if(e.type == "script" || e.type == "stylesheet") console.log("block : "+e.type);
+	else console.log("response : "+e.type);
+
+	return {cancel : (e.type == "script" || e.type == "stylesheet")}
+},
+{urls : ["http://wasabisyrup.com/*"]},
+["blocking"]);

@@ -13,8 +13,8 @@ html{
 	body{
 		background:#16191c;
 	}
-	body{opacity:0;}
-	body.show{opacity:1;transform:.3s ease 0s}
+	body{opacity:0;display:none;transform:.3s ease 0s}
+	body.show{opacity:1;display:block;}
 
 
 	img.view{
@@ -35,7 +35,7 @@ html{
 	}
 	div.view-header.bye{transform:translate(0px, -50px); transition: 0.3s ease 0s;}
 	div.view-page{
-		position:fixed;bottom:0px;right:0px;padding:10px;background:rgba(0,0,0,.5);color:rgba(255,255,255,.8);font-size:1.7em;border-radius-left-top:10px;
+		position:fixed;bottom:0px;right:0px;padding:10px;background:rgba(0,0,0,.5);color:rgba(255,255,255,.8);font-size:1.7em;border-bottom-left-radius: 10px;
 	}
 	
 	div.list-box{
