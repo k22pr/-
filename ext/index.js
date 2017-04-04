@@ -186,7 +186,7 @@ document.onreadystatechange = function (event) {
 
 		//save sync
 		chrome.storage.sync.get(dom.sync.save, function (loadData) {
-			if (loadData.json == "") {
+			if (loadData == undefined || loadData.json == "") {
 				loadData = {
 					json: "[]"
 				}
