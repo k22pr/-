@@ -1,8 +1,13 @@
 {
 	"manifest_version": 2,
 	"name": "마루마루 클리너",
-	"version": "0.93",
+	"version": "0.98",
 	"description": "마루마루를 클린하게 만들어 줍니다. 광고를 비롯한 불필요한 정보를 모두 삭제하며 애드블록 탐지기를 무력화 시켜줍니다.",
+	"applications" : {
+		"gecko" : {
+			"id": "{4f23869a-29c1-4f33-ac6d-fee835717f83}"
+		}
+	},
 	"icons": {
 		"32": "./maru.png",
 		"64": "./maru.png",
@@ -21,8 +26,8 @@
 				"http://wasabisyrup.com/*"
 			],
 			"js": [
-				"./ext/jquery.min.js",
-				"./ext/index.min.js"
+				"./ext/js/jquery-3.2.0.min.js",
+				"./ext/js/index.min.js"
 			],
 			"css": [
 				"./ext/css/tisbe.css",
@@ -35,8 +40,8 @@
 				"http://marumaru.in/*"
 			],
 			"js": [
-				"./ext/jquery.min.js",
-				"./ext/maru.min.js"
+				"./ext/js/jquery-3.2.0.min.js",
+				"./ext/js/maru.min.js"
 			],
 			"css": [
 				"./ext/css/maru.css"
@@ -46,7 +51,7 @@
 	],
 	"background": {
 		"scripts": [
-			"/ext/background.min.js"
+			"/ext/js/background.min.js"
 		]
 	},
 	"permissions": [

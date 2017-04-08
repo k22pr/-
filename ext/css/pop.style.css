@@ -21,7 +21,7 @@ body {
   max-width: 270px;
   min-width: 270px;
   overflow: hidden;
-  ext-align: center;
+  text-align: center;
   padding: 15px;
   margin: 0px;
   font-size: 13px;

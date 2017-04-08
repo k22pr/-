@@ -11,10 +11,6 @@ html {
   padding-top: 50px !important; }
   html body {
     background: #16191c; }
-  html body {
-    opacity: 0;
-    display: none;
-    transform: .3s ease 0s; }
   html body.show {
     opacity: 1;
     display: block; }
@@ -109,5 +105,11 @@ html {
     font-size: 0.9em;
     color: #999;
     font-weight: normal; }
+  html body div#root {
+    display: none !important; }
+  html body iframe, html body div#responsive-banner, html body div#widget__insert_html {
+    display: none !important; }
+  html div#widget_brank {
+    top: 0px !important; }
 
 /*# sourceMappingURL=style.css.map */

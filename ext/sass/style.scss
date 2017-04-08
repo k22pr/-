@@ -13,7 +13,6 @@ html{
 	body{
 		background:#16191c;
 	}
-	body{opacity:0;display:none;transform:.3s ease 0s}
 	body.show{opacity:1;display:block;}
 
 
@@ -52,4 +51,13 @@ html{
 	a:hover{color:#333;}
 	
 	.small{font-size:0.9em;color:#999;font-weight:normal}
+	
+	//광고 제거 test
+	body{
+		div#root{display:none !important}
+		iframe{display:none !important}
+		div#responsive-banner{@extend iframe}
+		div#widget__insert_html{@extend iframe}
+	}
+	div#widget_brank{top:0px !important;}
 }
