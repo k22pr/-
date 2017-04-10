@@ -14,7 +14,7 @@ var dom = {
 	make: {
 		img: function () {
 			for (i = 0; i < dom.img.length; i++) {
-				if(opt["CATAssistant"] == false) $("body").append("<img src='" + dom.url.origin + dom.img[i] + "' count='" + i + "' class='view'>");
+				if(opt.set["CATAssistant"] == false) $("body").append("<img src='" + dom.url.origin + dom.img[i] + "' count='" + i + "' class='view'>");
 				/*
 				src = dom.url.origin+dom.img[i].attributes[2].value;
 				console.log(dom.img[i].attributes[2]);
@@ -77,10 +77,13 @@ var dom = {
 	lock: false
 }
 opt = {
-   "CATAssistant" : false,
-   "autoBookMark" : true,
-   "denyRequest" : true,
-   "forcedRemove" : true
+      set: {
+            "CATAssistant": false,
+            "autoBookMark": true,
+            "denyRequest": true,
+            "forcedRemove": true
+      },
+      off: false
 }
 chrome.storage.sync.get({"opt":opt},function(load){
 	if(load == undefined || load == "");
@@ -105,7 +108,7 @@ var matcher = new chrome.declarativeWebRequest.RequestMatcher({
 	};
 */
 document.onreadystatechange = function (event){
-	if (document.readyState == "interactive") {
+	if (document.readyState == "interactive" && !opt.off) {
 		for (i = 0; i < event.srcElement.all.length; i++) {
 			var content = event.srcElement.all[i];
 			if (content.localName == "script") {
@@ -134,7 +137,7 @@ document.onreadystatechange = function (event){
 		else dom.lock = false;
 		dom.name.base = $("div.article-title").attr("title");
 		console.log(opt);
-		if(opt["forcedRemove"] == true && opt["CATAssistant"] == false){
+		if(opt.set["forcedRemove"] == true && opt.set["CATAssistant"] == false){
 			$(root).off();
 			root.remove();
 		}else{
@@ -143,7 +146,7 @@ document.onreadystatechange = function (event){
 		}
 	}
 
-	if (document.readyState == "complete") {
+	if (document.readyState == "complete" && !opt.off) {
 		if (dom.lock == true && dom.img.length == 0) dom.make.lockBox();
 		else dom.make.img();
 		dom.make.header();
@@ -188,7 +191,7 @@ document.onreadystatechange = function (event){
 		});
 
 		//save sync
-		if(opt["autoBookMark"] == true){
+		if(opt.set["autoBookMark"] == true){
 			chrome.storage.sync.get(dom.sync.save, function (loadData) {
 				if (loadData == undefined || loadData.json == "") {
 					loadData = {

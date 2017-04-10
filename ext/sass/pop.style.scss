@@ -15,6 +15,7 @@ body{max-height:400px;min-height:400px;width:270px;max-width:270px;min-width:270
 	font-family:'맑은고딕','나눔고딕','굴림';
 }
 img.logo{width:100%;}
+img.logo.grey{-webkit-filter: grayscale(100%);filter: grayscale(100%);}
 .b4{color:#f28657}
 
 	div.button-body{

@@ -1,3 +1,17 @@
+opt = {
+      set: {
+            "CATAssistant": false,
+            "autoBookMark": true,
+            "denyRequest": true,
+            "forcedRemove": true
+      },
+      off: false
+}
+chrome.storage.sync.get({ "opt": opt }, function (load) {
+	if (load == undefined || load == "");
+	else opt = load.opt;
+})
+
 dom = {
 	url : "http://wasabisyrup.com/archives/",
 	list : function(){
@@ -11,7 +25,11 @@ data = {
 	
 };
 
-$(document).ready(function(){
+$(document).ready(function () {
+	if (opt.off == true) {
+		$(".title-name").addClass("text-grey");
+		$("img.logo").addClass("grey");
+	}
 	$("input.search").focus();
 	chrome.storage.sync.get({json:""},function(item){
 		if(item == undefined || item == "") data = [];

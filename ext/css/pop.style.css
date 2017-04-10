@@ -30,6 +30,10 @@ body {
 img.logo {
   width: 100%; }
 
+img.logo.grey {
+  -webkit-filter: grayscale(100%);
+  filter: grayscale(100%); }
+
 .b4 {
   color: #f28657; }
 
