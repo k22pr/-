@@ -5,7 +5,7 @@ view = {
 $(document).ready(function(){
 	$(".fa-trash").remove();
 	$(".fa-check").remove();
-	$("iframe").remove();
+	//$("iframe").remove();
 	$("div#responsive-banner").remove();
 	$("div#widget__insert_html").remove();
 		

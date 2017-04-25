@@ -10,6 +10,8 @@ html .small, html .small font, html .small span {
   font-weight: normal; }
 html body iframe, html body div#responsive-banner, html body div#widget__insert_html {
   display: none !important; }
+html body iframe#commentFrame {
+  display: block !important; }
 html div#widget_brank {
   top: 0px !important; }
 

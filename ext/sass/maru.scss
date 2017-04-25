@@ -13,6 +13,7 @@ html{
 	//광고 제거 test
 	body{
 		iframe{display:none !important}
+			iframe#commentFrame{display:block !important};
 		div#responsive-banner{@extend iframe}
 		div#widget__insert_html{@extend iframe}
 	}
