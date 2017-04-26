@@ -5,9 +5,19 @@ view = {
 $(document).ready(function(){
 	$(".fa-trash").remove();
 	$(".fa-check").remove();
-	//$("iframe").remove();
 	$("div#responsive-banner").remove();
 	$("div#widget__insert_html").remove();
+	$("div.comment").remove();
+
+	$("div#boardList").prepend("<button class='w12 comment-toggle'>댓글 보기/숨기기</button>");
+	$("iframe#commentFrame").addClass("hide");
+
+	$(document).on("click", "button.comment-toggle", function () {
+		commentBody = $("iframe#commentFrame");
+		commentBody.toggleClass("hide");
+		//commentBody.css("height", (Number(commentBody.contents().find('body')[0].scrollHeight) - 50) + "px !important");
+		commentBody.height(Number(commentBody.contents().find('body')[0].scrollHeight) - 50);
+	})
 		
 	chrome.storage.sync.get(view,function(loadViewData){
 		if(loadViewData.view == ""){

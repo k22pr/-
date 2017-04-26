@@ -13,9 +13,21 @@ html{
 	//광고 제거 test
 	body{
 		iframe{display:none !important}
-			iframe#commentFrame{display:block !important};
+			iframe#commentFrame{display:block !important;transition: .5s ease 0s;};
+			iframe#commentFrame.hide{height:150px !important;};
 		div#responsive-banner{@extend iframe}
 		div#widget__insert_html{@extend iframe}
+		div.banner_cont{@extend iframe}
 	}
 	div#widget_brank{top:0px !important;}
+
+	div#boardView{padding:0px;}
+	
+	//comment toggle button
+	button.comment-toggle{
+		width:100%;overflow:hidden;display:block;cursor:pointer;transition: .3s ease .0s;
+		border-radius:3px;border:1px solid rgba(0,0,0,.3);color:#333;background-color:rgb(255,255,255);
+		margin-bottom:10px;padding:8px;
+	}
+	button.comment-toggle:hover{background-color:rgb(0,158,255);border:1px solid rgba(0,0,0,0);color:#fff;}
 }
