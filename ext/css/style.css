@@ -25,6 +25,7 @@ html {
     border-left: 3px solid rgba(0, 0, 0, 0.5);
     border-right: 3px solid rgba(0, 0, 0, 0.5);
     margin: 0px auto;
+    margin-top:5px;
     padding: 0px;
     max-width: 100%; }
   html div.view-header {

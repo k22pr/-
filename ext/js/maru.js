@@ -2,22 +2,27 @@ view = {
 	view : ""
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
 	$(".fa-trash").remove();
 	$(".fa-check").remove();
 	$("div#responsive-banner").remove();
 	$("div#widget__insert_html").remove();
 	$("div.comment").remove();
 
-	$("div#boardList").prepend("<button class='w12 comment-toggle'>댓글 보기/숨기기</button>");
 	$("iframe#commentFrame").addClass("hide");
+	$("a[name=CMT]").prepend("<button class='w12 comment-toggle'>댓글 보기/숨기기</button>");
 
+	commentBody = $("iframe#commentFrame");
 	$(document).on("click", "button.comment-toggle", function () {
-		commentBody = $("iframe#commentFrame");
 		commentBody.toggleClass("hide");
 		//commentBody.css("height", (Number(commentBody.contents().find('body')[0].scrollHeight) - 50) + "px !important");
 		commentBody.height(Number(commentBody.contents().find('body')[0].scrollHeight) - 50);
 	})
+	
+	$(commentBody).ready(function () { 
+		console.log(commentBody.contents().find('#commentFrame'));
+		console.log(commentBody.contents().find('body'));
+	});
 		
 	chrome.storage.sync.get(view,function(loadViewData){
 		if(loadViewData.view == ""){

@@ -153,6 +153,33 @@ document.onreadystatechange = function (event){
 		dom.make.nowPage();
 		$("body").addClass("show");
 
+		//move key code
+		$(document).on("keydown", function (e) {
+			//up
+			if (e.keyCode == 38) {
+				no = Number(dom.nowView) - 2;
+				if(0 >= no) prep = 0;
+				prep = $("img.view")[no];
+
+				$(window).scrollTop($(prep).offset().top);
+				return false;
+
+			} else if (e.keyCode == 40) {
+				no = dom.nowView;
+				if (dom.img.length-1 < no) no = dom.img.length;
+				next = $("img.view")[no];
+
+				$(window).scrollTop($(next).offset().top);
+				return false;
+			} else if (e.keyCode == 37) {
+				if (dom.season[dom.now - 1] !== undefined) location.href = dom.season[dom.now - 1][1];
+				return false;
+			} else if (e.keyCode == 39) {
+				if (dom.season[dom.now + 1] !== undefined) location.href = dom.season[dom.now + 1][1];
+				return false;
+			}
+		});
+
 		$(function () {
 			//Keep track of last scroll
 			var lastScroll = 0;
@@ -177,7 +204,8 @@ document.onreadystatechange = function (event){
 				//scroll
 				$.each($("img.view"), function (i, list) {
 					if ($(list).offset().top - ($(window).height() / 3) > $(window).scrollTop()) {
-						$("span.now").html($(list).attr("count"));
+						dom.nowView = $(list).attr("count");
+						$("span.now").html(dom.nowView);
 						return false;
 					}
 				});
@@ -203,7 +231,6 @@ document.onreadystatechange = function (event){
 				if (dom.sync.data.length > 100) dom.sync.data = dom.sync.data.slice(1);
 				save = dom.sync.data;
 				var saveNo = -1;
-
 				save.forEach(function (list, i) {
 					if (list.name == dom.name.title()) {
 						saveNo = i;
@@ -224,7 +251,6 @@ document.onreadystatechange = function (event){
 					chrome.storage.sync.set(dom.sync.save, function () {
 						//console.log(dom.sync.save);
 					});
-
 			});
 		}
 
