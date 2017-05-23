@@ -25,7 +25,6 @@ html {
     border-left: 3px solid rgba(0, 0, 0, 0.5);
     border-right: 3px solid rgba(0, 0, 0, 0.5);
     margin: 0px auto;
-    margin-top:5px;
     padding: 0px;
     max-width: 100%; }
   html div.view-header {
@@ -107,7 +106,7 @@ html {
     font-weight: normal; }
   html body div#root {
     display: none !important; }
-  html body iframe, html body div#responsive-banner, html body div#widget__insert_html {
+  html body iframe, html body div#responsive-banner, html body div#widget_insert_html {
     display: none !important; }
   html div#widget_brank {
     top: 0px !important; }

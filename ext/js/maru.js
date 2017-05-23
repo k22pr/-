@@ -20,8 +20,9 @@ $(document).ready(function () {
 	})
 	
 	$(commentBody).ready(function () { 
-		console.log(commentBody.contents().find('#commentFrame'));
-		console.log(commentBody.contents().find('body'));
+		content = document.getElementById('commentFrame').contentWindow.document.getElementById("editFrameContent");
+		console.log($("#commentFrame").contents());
+		console.log(content);
 	});
 		
 	chrome.storage.sync.get(view,function(loadViewData){

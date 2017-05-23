@@ -1,9 +1,10 @@
 opt = {
       set: {
             "CATAssistant": false,
+		"QuickKey": true,
             "autoBookMark": true,
             "denyRequest": true,
-            "forcedRemove": true
+		"forcedRemove": true
       },
       off: false
 }

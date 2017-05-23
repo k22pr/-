@@ -79,9 +79,10 @@ var dom = {
 opt = {
       set: {
             "CATAssistant": false,
+						"QuickKey": true,
             "autoBookMark": true,
             "denyRequest": true,
-            "forcedRemove": true
+						"forcedRemove": true
       },
       off: false
 }
@@ -153,32 +154,36 @@ document.onreadystatechange = function (event){
 		dom.make.nowPage();
 		$("body").addClass("show");
 
-		//move key code
-		$(document).on("keydown", function (e) {
-			//up
-			if (e.keyCode == 38) {
-				no = Number(dom.nowView) - 2;
-				if(0 >= no) prep = 0;
-				prep = $("img.view")[no];
+		console.log(opt);
+		//if key move options is true		
+		if (opt.set.QuickKey == true) {
+			//move key code
+			$(document).on("keydown", function (e) {
+				//up
+				if (e.keyCode == 38) {
+					no = Number(dom.nowView) - 2;
+					if (0 >= no) prep = 0;
+					prep = $("img.view")[no];
 
-				$(window).scrollTop($(prep).offset().top);
-				return false;
+					$(window).scrollTop($(prep).offset().top);
+					return false;
 
-			} else if (e.keyCode == 40) {
-				no = dom.nowView;
-				if (dom.img.length-1 < no) no = dom.img.length;
-				next = $("img.view")[no];
+				} else if (e.keyCode == 40) {
+					no = dom.nowView;
+					if (dom.img.length - 1 < no) no = dom.img.length;
+					next = $("img.view")[no];
 
-				$(window).scrollTop($(next).offset().top);
-				return false;
-			} else if (e.keyCode == 37) {
-				if (dom.season[dom.now - 1] !== undefined) location.href = dom.season[dom.now - 1][1];
-				return false;
-			} else if (e.keyCode == 39) {
-				if (dom.season[dom.now + 1] !== undefined) location.href = dom.season[dom.now + 1][1];
-				return false;
-			}
-		});
+					$(window).scrollTop($(next).offset().top);
+					return false;
+				} else if (e.keyCode == 37) {
+					if (dom.season[dom.now - 1] !== undefined) location.href = dom.season[dom.now - 1][1];
+					return false;
+				} else if (e.keyCode == 39) {
+					if (dom.season[dom.now + 1] !== undefined) location.href = dom.season[dom.now + 1][1];
+					return false;
+				}
+			});
+		}	
 
 		$(function () {
 			//Keep track of last scroll
