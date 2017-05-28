@@ -53,7 +53,8 @@ var dom = {
 	name: {
 		base: $("title").html(),
 		title: function () {
-			arr = this.base.split(' ');
+			arr = this.base.split('|');
+			arr = this.arr[0].split(' ');
 			name = '';
 			if (arr[arr.length - 1].search("/(-|~)/i") != -1) arr[arr.length - 1] = '';
 			if (arr.length < 1) return base;
