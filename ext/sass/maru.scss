@@ -1,5 +1,4 @@
 @charset "utf-8";
-
 html{
 	.view-link{
 		color:#1580e3 !important;font-weight:bold;transition:.3s ease 0s;
@@ -10,7 +9,6 @@ html{
 		color:#aaa !important;font-weight:normal;
 		font,span{ @extend .small}
 	}
-	//광고 제거 test
 	body{
 		iframe{display:none !important}
 			iframe#commentFrame{display:block !important;transition: .5s ease 0s;};

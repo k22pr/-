@@ -21,8 +21,12 @@ chrome.webRequest.onBeforeRequest.addListener(function (e) {
 		if (load == undefined || load == "");
 		else opt = load.opt;
 	})
-	if (opt.off == true) return {cancel : false}
-	else return {cancel : (e.type != "image" && e.type != "main_frame" && e.type != "other")}
+
+	if (opt.off == true) return {cancel : false};
+	else{
+		console.log(e.type);
+		return {cancel : (e.type != "image" && e.type != "main_frame" && e.type != "other" && e.type != "xmlhttprequest")};
+	}
 },
 {urls : ["http://wasabisyrup.com/*"]},
 ["blocking"]);
