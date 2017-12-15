@@ -33,7 +33,7 @@ html button.comment-toggle {
   padding: 8px; }
 html button.comment-toggle:hover {
   background-color: #009eff;
-  border: 1px solid transparent;
+  border: 1px solid rgba(0, 0, 0, 0);
   color: #fff; }
 
 /*# sourceMappingURL=maru.css.map */

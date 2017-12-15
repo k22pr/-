@@ -24,7 +24,7 @@ chrome.webRequest.onBeforeRequest.addListener(function (e) {
 
 	if (opt.off == true) return {cancel : false};
 	else{
-		console.log(e.type);
+		if(e.type == "script") console.log(e);
 		return {cancel : (e.type != "image" && e.type != "main_frame" && e.type != "other" && e.type != "xmlhttprequest")};
 	}
 },

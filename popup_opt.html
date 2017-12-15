@@ -2,28 +2,46 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="ext/css/tisbe.css">
+		<link rel="stylesheet" href="ext/css/fontium.css">
 		<link rel="stylesheet" href="ext/css/pop.style.css">
 		<script src="./ext/js/jquery-3.2.0.min.js"></script>
-		<script src="./ext/js/pop.opt.js"></script>
+		<script src="./ext/js/pop.opt.min.js"></script>
+		<script src="./ext/js/pop.global.min.js"></script>
 	</head>
-   <body class="box white tleft">
+   <body class="box tleft">
 		<div class="w12">
-			<button class="w4 btn blue back">이전으로</button>
+			<a href="./popup.html"><div cass="w1 left small-color"><i class="fonti um-arrow-circle-o-left twhite" style="font-size:25px;"></i></div></a>
 			<!--<button class="aright w4 btn red extension-off">사용중지</button>-->
 		</div>
-			<div class="w12 box white">
-				<div class="w12 h5 info blue">적용된 옵션</div>
-				<ul class="w12 on-opt">
+			<div class="w12 box">
+				<div class="w12">
+					<div class="w2 b4 center"><i class="fonti um-check-circle-o-alt tblue"></i> </div>
+					<div class="w10 title pt7">적용된 옵션</div>
+				</div>
+				<ul class="w12 on-opt mt5">
 
 				</ul>
 			</div>
-			<div class="w12 box white none-use">
-				<div class="w12 h5 info red">미적용 옵션</div>
-				<ul class="w12 off-opt">
+			<div class="w12 box none-use">
+				<div class="w12">
+					<div class="w2 b4 center"><i class="fonti um-times-circle-o tred"></i> </div>
+					<div class="w10 title pt7">미용된 옵션</div>
+				</div>
+				<ul class="w12 off-opt mt5">
 
 				</ul>
 			</div>
-			<div class="w12">
+			<div class="w12 mt10">
+				<div class="w12">
+					<div class="w2 b4 center"><i class="fonti um-inbox small-color"></i> </div>
+					<div class="w10 title pt7">다음 이미지보기 키설정</div>
+				</div>
+				<button class="wdd3 btn b5 keypad-change btn-left" key="1">왼쪽<br><i class="fonti um-angle-left small mt5"></i></button>
+				<button class="wdd3 btn b5 keypad-change btn-down" key="2">아래쪽<br><i class="fonti um-angle-down small mt5"></i></button>
+				<button class="wdd3 btn b5 keypad-change btn-right" key="3">오른쪽<br><i class="fonti um-angle-right small mt5"></i></button>
+				<button class="wdd3 btn b5 keypad-change btn-false" key="0">미사용<br><i class="fonti um-times small mt5"></i></button>
+			</div>
+			<div class="w12 mt10">
 				<button class="aright btn red w6 remove-all radi4">모든 북마크 삭제</button>
 			</div>
    </body>

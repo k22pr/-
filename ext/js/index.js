@@ -46,7 +46,10 @@ var dom = {
 		},
 		lockBox: function () {
 			$("body").append("<div class='wac5 box lock-box mt-p10 p10'><div class='b3'>이 페이지는 잠겨 있습니다.</div></div>");
-			$("div.lock-box").append("<form action='" + location.href + "' class='wac8 b4 mt20' method='POST'><input type='password' name='pass' placeholder='비밀번호 입력' class='w12'><button class='btn oran w12 mt10'>확인</form>");
+			$("div.lock-box").append("<script src='https://www.google.com/recaptcha/api.js?onload=captchaCallback' async defer></script>");
+			$("div.lock-box").append("<form action='/"+dom.urlBase[1]+"/"+dom.urlBase[2]+"' class='passform wac8 b4 mt20' method='POST'><input type='password' name='pass' placeholder='비밀번호 입력' class='w12'><button class='btn oran w12 mt10'>확인</form>");
+			$("form.passform").prepend(clone[0].outerHTML);
+			
 		},
 		listBox: function () {
 			$("div.view-header").append("<div class='list-box b5 w12 hide'></div>");
@@ -297,8 +300,10 @@ document.onreadystatechange = function (event){
 			});
 		}());
 
-		if ($("form").length != 0) dom.lock = true;
-		else dom.lock = false;
+		if ($("form").length != 0){ 
+			dom.lock = true;
+			clone = $("div.g-recaptcha");
+		}else dom.lock = false;
 		dom.name.base = $("div.article-title").attr("title");
 		//console.log(opt);
 		console.log(opt);

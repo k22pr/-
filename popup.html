@@ -2,25 +2,26 @@
 <html>
 	<head>
 		<link rel="stylesheet" href="ext/css/tisbe.css">
+		<link rel="stylesheet" href="ext/css/fontium.css">
 		<link rel="stylesheet" href="ext/css/pop.style.css">
 		<script src="./ext/js/jquery-3.2.0.min.js"></script>
+		<script src="./ext/js/axios.min.js"></script>
+		<script src="./ext/js/pop.global.min.js"></script>
 		<script src="./ext/js/pop.index.min.js"></script>
 	</head>
-	<body class="box white">
-		<div class="w12 tright"><a href="./popup_opt.html" class="small">옵션</a></div>
-		<div class="w12 flex">
-			<div class="w3"><img src="./maru.png" class="logo"></div>
-			<div class="w9 p5 b4 toran">
-				<div class="w12 p3 bold title-name">마루마루 클리너</div>
-				<div class="w12 small p3 by gul">By. 서버지기</div>
-			</div>
-		</div>
-		<div class="w12 search-box p5">
+	<body class="w12">
+		<div class="w12 search-box">
 			<input type="text" class="w9 search" placeholder="검색어 입력">
-			<button class="w3 btn blue p8 search-btn">검색</button>
+			<button class="w3 btn oran p8 search-btn"><i class="fonti um-search-minus mt0"></i> 검색</button>
 		</div>
-		<ul class="w12 my-list box white tleft">
-		
-		</li>
+		<div class="w12">
+			<div class="w12 center small-color p3 mt5"><i class="fonti um-bookmark"></i> 내가 본 만화</div>
+			<ul class="w12 my-list tleft pt5" style="height:100%;max-height:325px;">
+			</ul>
+		</div>
+		<div class="w12 footer p5">
+			<div class="w12">Make by 서버지기</div>
+			<div class="opt-btn b4"><a href="./popup_opt.html" class="small"><i class="fonti um-cog"></i></a></div>
+		</div>
 	</body>
 </html>

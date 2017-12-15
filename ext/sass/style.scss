@@ -112,9 +112,9 @@ html{
 	//광고 제거 test
 	body{
 		div#root{display:none !important}
-		iframe{display:none !important}
 		div#responsive-banner{@extend iframe}
 		div#widget_insert_html{@extend iframe}
 	}
 	div#widget_brank{top:0px !important;}
+	div.g-recaptcha iframe{display:block !important}
 }
