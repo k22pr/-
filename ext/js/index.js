@@ -47,7 +47,8 @@ var dom = {
 		lockBox: function () {
 			$("body").append("<div class='wac5 box lock-box mt-p10 p10'><div class='b3'>이 페이지는 잠겨 있습니다.</div></div>");
 			$("div.lock-box").append("<script src='https://www.google.com/recaptcha/api.js?onload=captchaCallback' async defer></script>");
-			$("div.lock-box").append("<form action='/"+dom.urlBase[1]+"/"+dom.urlBase[2]+"' class='passform wac8 b4 mt20' method='POST'><input type='password' name='pass' placeholder='비밀번호 입력' class='w12'><button class='btn oran w12 mt10'>확인</form>");
+			$("div.lock-box").append("<div class='w12'><img src='/captcha1'></div>");
+			$("div.lock-box").append("<form action='/"+dom.urlBase[1]+"/"+dom.urlBase[2]+"' class='passform wac8 b4 mt20' method='POST'><input type='text' name='captcha1' placeholder='위의 한글' class='w12'><button class='btn oran w12 mt10'>확인</form>");
 			$("form.passform").prepend(clone[0].outerHTML);
 			
 		},
@@ -279,7 +280,7 @@ document.onreadystatechange = function (event){
 			if (content.localName == "script") {
 				dom.addSrc(content);
 			} else if (content.localName == "img") {
-				dom.addImg(content.attributes[2].value);
+				if(content.attributes[2] != undefined) dom.addImg(content.attributes[2].value);
 			}
 		}
 
@@ -300,7 +301,7 @@ document.onreadystatechange = function (event){
 			});
 		}());
 
-		if ($("form").length != 0){ 
+		if($("form").length != 0){ 
 			dom.lock = true;
 			clone = $("div.g-recaptcha");
 		}else dom.lock = false;
@@ -332,7 +333,7 @@ document.onreadystatechange = function (event){
 			$("div.view-mode-body").append("<div class='color-change' mode='black' style='margin-top:10px;'><div class='color-radi black'></div></div>");
 			$("div.view-mode-body").append("<div class='color-change' mode='gray'><div class='color-radi gray'></div></div>");
 			$("div.view-mode-body").append("<div class='color-change' mode='white'><div class='color-radi white'></div></div>");
-			if (dom.lock == true && dom.img.length == 0) dom.make.lockBox();
+			if (dom.lock == true && dom.img.length < 1) dom.make.lockBox();
 			else if(dom.viewMode == "list") dom.make.img();
 			else{
 				Promise.resolve(dom.make.imageRequest(),function(){
