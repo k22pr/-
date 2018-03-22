@@ -187,6 +187,17 @@ html {
   html div.btn-lock {
     color: #999;
     background: #eee; }
+  html form input[type=text] {
+    padding: 10px;
+    width: 200px; }
+  html form input[type=submit] {
+    padding: 10px;
+    width: 200px;
+    background: #009eff;
+    color: #eee;
+    border: 0px; }
+  html form input[type=submit]:hover {
+    background: rgba(0, 158, 255, 0.85); }
   html a {
     color: #333; }
   html a:hover {

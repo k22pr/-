@@ -103,6 +103,11 @@ html{
 	div.btn{transition:.2s ease 0s;cursor:pointer;}
 		div.btn:hover{background:rgb(0,158,255);color:#fff;}
 	div.btn-lock{color:#999;background:#eee;}
+	form{
+		input[type=text]{padding:10px;width:200px;}
+		input[type=submit]{padding:10px;width:200px;background:rgb(0,158,255);color:#eee;border:0px;}
+		input[type=submit]:hover{background:rgba(0,158,255,.85)}
+	}
 
 	a{color:#333;}
 	a:hover{color:#333;}
