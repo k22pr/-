@@ -38,7 +38,7 @@ var dom = {
 		},
 		nowPage: function () {
 			//현재보는 페이지
-			$("body").append("<div class='view-page only-line'><span class='now'>" + dom.nowView + "</span>/" + (dom.img.length) + "</span></div>");
+			$("body").append("<div class='view-page only-line'><span class='now'>" + dom.nowView + "</span>/<span class='total'>" + (dom.img.length) + "</span></div>");
 		},
 		nowPageChange : function(i){
 			dom.nowView = i;
@@ -255,23 +255,6 @@ chrome.storage.sync.get({"opt":opt},function(load){
 	else opt = load.opt;
 });
 
-/*
-아직 beata버젼에서만 작동함
-var matcher = new chrome.declarativeWebRequest.RequestMatcher({
-   url: { hostSuffix: 'example.com', schemes: ['http'] },
-   resourceType: ['main_frame']
-});
-	var clearSrc = {
-		conditions: [
-			new chrome.declarativeWebRequest.RequestMatcher({
-				url: { hostSuffix: 'wasabisyrup.com' }
-			})
-		],
-		actions: [
-			new chrome.declarativeWebRequest.CancelRequest()
-		]
-	};
-*/
 document.onreadystatechange = function (event){
 	if (document.readyState == "interactive" && !opt.off) {
 		for (i = 0; i < event.srcElement.all.length; i++) {
@@ -304,6 +287,37 @@ document.onreadystatechange = function (event){
 			dom.lock = true;
 			clone = $("div.article-gallery");
 		}else dom.lock = false;
+		
+		if($(".gallery-template")!=null){
+				var template = $(".gallery-template");
+				var params = {"signature":template.attr("data-signature"), "key":template.attr("data-key")};
+				var sr = function(x){
+					var out = [];
+					for(var k in x) out.push( encodeURIComponent(k) + "=" + encodeURIComponent(x[k]) );
+					return out.join("&");
+				};
+				$.ajax({
+					url: "/assets/"+window.location.pathname.match(/([^\/]*)\/*$/)[1]+"/1.json?"+sr(params),
+					success : function(json){
+						//var json = JSON.parse(raw);
+						if(json.status!='ok'){
+						}else{
+							for(var i=0; i<json.sources.length; i++){
+								console.log(json.sources[i]);
+								dom.addImg(json.sources[i]);
+							}
+							if(dom.viewMode == "list") dom.make.img();
+								Promise.resolve(dom.make.imageRequest(),function(){
+								}).then(function(){
+									if(dom.viewMode == "one") dom.make.onePageMode();
+									else if(dom.viewMode == "book") dom.make.bookPageMode();
+								});
+							$("div.view-page span.total").html(dom.img.length);
+						}
+					}
+				});
+		}
+
 		dom.name.base = $("div.article-title").attr("title");
 		//console.log(opt);
 		console.log(opt);
@@ -333,13 +347,15 @@ document.onreadystatechange = function (event){
 			$("div.view-mode-body").append("<div class='color-change' mode='gray'><div class='color-radi gray'></div></div>");
 			$("div.view-mode-body").append("<div class='color-change' mode='white'><div class='color-radi white'></div></div>");
 			if (dom.lock == true && dom.img.length < 1) dom.make.lockBox();
-			else if(dom.viewMode == "list") dom.make.img();
+			else if(dom.viewMode == "list" && dom.img.length != 0) dom.make.img();
 			else{
-				Promise.resolve(dom.make.imageRequest(),function(){
-				}).then(function(){
-					if(dom.viewMode == "one") dom.make.onePageMode();
-					else if(dom.viewMode == "book") dom.make.bookPageMode();
-				});
+				if(dom.img.length != 0){
+					Promise.resolve(dom.make.imageRequest(),function(){
+					}).then(function(){
+						if(dom.viewMode == "one") dom.make.onePageMode();
+						else if(dom.viewMode == "book") dom.make.bookPageMode();
+					});
+				}
 			}
 		});
 		chrome.storage.sync.get("bgColor",function(load){

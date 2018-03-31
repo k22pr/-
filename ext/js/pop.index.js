@@ -32,18 +32,25 @@ function GetAxiosData(i,list){
 				//화의 주소값
 				nowName[j][1] = str.match(/\"(.+)\"/)[1];
 			})
+
+			banCount = 0;
 			nowName.forEach(function(str,j){
 				//특별편, 변외편, 외전 등 마지막에 위치하는 예외 제거
 				if(str[0].search(/([\uAC00-\uAD8B]|[\uAD8D-\uD0C3]|[\uD0C5-\uD3B7]|[\uD3B9-\uD653]|[\uD655-\uD7A3]+)/) != -1){
 					//console.log("remove : "+str+" // index : "+str[0].search(/([\uAC00-\uAD8B]|[\uAD8D-\uD0C3]|[\uD0C5-\uD3B7]|[\uD3B9-\uD653]|[\uD655-\uD7A3]+)/));
-					arr.splice(j,1);
+					arr.slice(j,1);
+					banCount++;
 				}else if(list.link[1] == nowName[j][1]){
 					//console.log('saved : '+nowName[j][1])
 					savedIndex = j;
 				}
 			});
+			console.log(banCount);
+			console.log(arr.length-1);
+			console.log(savedIndex);
+			console.log(" ");
 
-			if(savedIndex >= Number(arr.length-1)) iconStatus = 'pass';
+			if(savedIndex+banCount >= Number(arr.length-1)) iconStatus = 'pass';
 			else iconStatus = 'update';
 			//if(!dom.lastUpdate.data) dom.lastUpdate.data = [];
 			data[i].updateIcon = iconStatus;
